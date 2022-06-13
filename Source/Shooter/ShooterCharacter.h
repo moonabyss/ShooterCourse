@@ -31,6 +31,15 @@ public:
 
 public:
 
+protected:
+	/** Called for forwards/backwards inputs */
+	UFUNCTION()
+	void MoveForward(float Value);
+
+	/** Called for side to side inputs */
+	UFUNCTION()
+	void MoveRight(float Value);
+
 private:
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))

@@ -33,14 +33,25 @@ public:
 
 protected:
 	/** Called for forwards/backwards inputs */
-	UFUNCTION()
 	void MoveForward(float Value);
 
 	/** Called for side to side inputs */
-	UFUNCTION()
 	void MoveRight(float Value);
 
+	/**
+	 * Called via input to turn at a given rate
+	 * @param Rate This is a normalized rate, 1.0 means 100% of desired turn rate
+	 */
+	void TurnAtRate(float Rate);
+
+	/**
+	 * Called via input to look up/down at a given rate
+	 * @param Rate This is a normalized rate, 1.0 means 100% of desired look up/down rate
+	 */
+	void LookUpAtRate(float Rate);
+
 private:
+	// COMPONENTS
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
@@ -48,4 +59,13 @@ private:
 	/** Camera that follows the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
+
+	// VARIABLES
+	/** Base turn rate in deg/s. Other scaling may affect final turn rate */
+	UPROPERTY(Category = "Camera", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float BaseTurnRate;
+
+	/** Base look up/down rate in deg/s. Other scaling may affect final turn rate */
+	UPROPERTY(Category = "Camera", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float BaseLookUpRate;
 };

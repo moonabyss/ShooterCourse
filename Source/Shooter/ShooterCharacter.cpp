@@ -114,13 +114,22 @@ void AShooterCharacter::LookUpAtRate(float Rate)
 
 void AShooterCharacter::FireWeapon()
 {
-	if (!FireSound) return;
-	UGameplayStatics::PlaySound2D(this, FireSound);
+	if (FireSound)
+	{
+		UGameplayStatics::PlaySound2D(this, FireSound);
+	}
 
 	const USkeletalMeshSocket* BarrelSocket = GetMesh()->GetSocketByName("BarrelSocket");
-	if (!BarrelSocket) return;
-	const FTransform SocketTransform = BarrelSocket->GetSocketTransform(GetMesh());
+	if (BarrelSocket && MuzzleFlash)
+	{
+		const FTransform SocketTransform = BarrelSocket->GetSocketTransform(GetMesh());
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), MuzzleFlash, SocketTransform);
+	}
 
-	if (!MuzzleFlash) return;
-	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), MuzzleFlash, SocketTransform);
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && HipFireMontage)
+	{
+		AnimInstance->Montage_Play(HipFireMontage);
+		AnimInstance->Montage_JumpToSection(FName("StartFire"));
+	}
 }

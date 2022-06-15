@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "ShooterCharacter.generated.h"
 
+class UAnimMontage;
 class UCameraComponent;
 class UParticleSystem;
 class USpringArmComponent;
@@ -81,4 +82,8 @@ private:
 	/** Flash spawned at BarrelSocket */
 	UPROPERTY(Category = "Combat", EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UParticleSystem* MuzzleFlash;
+
+	/** Montage for firing the weapon */
+	UPROPERTY(Category = "Combat", EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* HipFireMontage;
 };

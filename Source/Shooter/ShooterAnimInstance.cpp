@@ -30,8 +30,4 @@ void UShooterAnimInstance::UpdateAnimationProperties(float DeltaTime)
 
 	// Is the character accelerating?
 	bAccelerating = ShooterCharacter->GetCharacterMovement()->GetCurrentAcceleration().Size() > 0.f ? true : false;
-	
-	printf(0, "Speed = %f", Speed);
-	printf(1, "bInAir = %d", bInAir);
-	printf(2, "bAccelerating = %d", bAccelerating);
 }

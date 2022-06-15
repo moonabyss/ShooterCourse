@@ -50,6 +50,9 @@ protected:
 	 */
 	void LookUpAtRate(float Rate);
 
+	/** Called when Fire button is pressed */
+	void FireWeapon();
+
 private:
 	// COMPONENTS
 	/** Camera boom positioning the camera behind the character */

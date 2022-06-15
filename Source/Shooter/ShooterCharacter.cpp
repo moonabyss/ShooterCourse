@@ -5,6 +5,8 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 
 #include "PrintStrings.h"
 
@@ -111,5 +113,7 @@ void AShooterCharacter::LookUpAtRate(float Rate)
 
 void AShooterCharacter::FireWeapon()
 {
-	print(-1, "FireWeapon()");
+	if (!FireSound) return;
+	
+	UGameplayStatics::PlaySound2D(this, FireSound);
 }

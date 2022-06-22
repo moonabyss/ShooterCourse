@@ -86,4 +86,8 @@ private:
 	/** Montage for firing the weapon */
 	UPROPERTY(Category = "Combat", EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UAnimMontage* HipFireMontage;
+
+	/** Particles spawned upon bullets impact */
+	UPROPERTY(Category = "Combat", EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UParticleSystem* ImpactParticles;
 };

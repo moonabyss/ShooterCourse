@@ -56,6 +56,8 @@ protected:
 	/** Called when Fire button is pressed */
 	void FireWeapon();
 
+	bool GetBeamEndLocation(const FVector& MuzzleSocketLocation, FVector& OutBeamEndLocation);
+
 private:
 	// COMPONENTS
 	/** Camera boom positioning the camera behind the character */

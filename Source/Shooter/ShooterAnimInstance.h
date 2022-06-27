@@ -40,6 +40,6 @@ private:
 	bool bAccelerating;
 
 	/** Offset yaw used for strafing */
-	UPROPERTY(Category = "Movement", BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(Category = "Movement", BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float MovementOffsetYaw;
 };

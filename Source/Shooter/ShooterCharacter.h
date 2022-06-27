@@ -32,6 +32,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	/** Is Player pressing keys for movement */
+	FORCEINLINE bool IsReceivingMoveInput() { return bReceivingMoveInput; }
+
 public:
 
 protected:
@@ -76,6 +79,10 @@ private:
 	/** Base look up/down rate in deg/s. Other scaling may affect final turn rate */
 	UPROPERTY(Category = "Camera", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float BaseLookUpRate;
+
+	/** Player is pressing keys for movement */
+	UPROPERTY(Category = "Movement", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	bool bReceivingMoveInput;
 
 	/** Randomized gunshot sound cue */
 	UPROPERTY(Category = "Combat", EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))

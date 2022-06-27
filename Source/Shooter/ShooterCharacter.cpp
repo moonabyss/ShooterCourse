@@ -56,6 +56,7 @@ void AShooterCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	bReceivingMoveInput = false;
 }
 
 // Called to bind functionality to input
@@ -81,6 +82,8 @@ void AShooterCharacter::MoveForward(float Value)
 {
 	if (Controller && Value != 0.f)
 	{
+		bReceivingMoveInput = true;
+
 		// find out which way is forward
 		const FRotator Rotation{ Controller->GetControlRotation() };
 		const FRotator YawRotation{ 0, Rotation.Yaw, 0 };
@@ -94,6 +97,8 @@ void AShooterCharacter::MoveRight(float Value)
 {
 	if (Controller && Value != 0.f)
 	{
+		bReceivingMoveInput = true;
+
 		// find out which way is right
 		const FRotator Rotation{ Controller->GetControlRotation() };
 		const FRotator YawRotation{ 0, Rotation.Yaw, 0 };

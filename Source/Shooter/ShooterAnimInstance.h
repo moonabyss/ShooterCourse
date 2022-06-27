@@ -42,4 +42,12 @@ private:
 	/** Offset yaw used for strafing */
 	UPROPERTY(Category = "Movement", BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float MovementOffsetYaw;
+
+	/** Offset yaw the frame before we stopped moving */
+	UPROPERTY(Category = "Movement", BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float LastMovementOffsetYaw;
+
+	/** Speed before we stopped movement */
+	UPROPERTY(Category = "Movement", BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float LastSpeed;
 };

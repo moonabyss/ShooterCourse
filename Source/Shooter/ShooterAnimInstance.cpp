@@ -35,8 +35,16 @@ void UShooterAnimInstance::UpdateAnimationProperties(float DeltaTime)
 	FRotator AimRotation = ShooterCharacter->GetBaseAimRotation();
 	FRotator MovementRotation = UKismetMathLibrary::MakeRotFromX(ShooterCharacter->GetVelocity());
 	MovementOffsetYaw = UKismetMathLibrary::NormalizedDeltaRotator(MovementRotation, AimRotation).Yaw;
+	
+	if (ShooterCharacter->IsReceivingMoveInput())
+	{
+		LastMovementOffsetYaw = MovementOffsetYaw;
+		LastSpeed = Speed;
+	}
 
 	printf(1, "Base Aim Rotation: %f", AimRotation.Yaw);
 	printf(2, "Movement Rotation: %f", MovementRotation.Yaw);
 	printf(3, "Movement Offset: %f", MovementOffsetYaw);
+	printf(4, "LastMovement Offset: %f", LastMovementOffsetYaw);
+	printf(5, "Last Speed: %f", LastSpeed);
 }

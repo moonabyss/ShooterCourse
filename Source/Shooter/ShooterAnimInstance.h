@@ -50,4 +50,8 @@ private:
 	/** Speed before we stopped movement */
 	UPROPERTY(Category = "Movement", BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float LastSpeed;
+
+	/** Prevent flap offset between -180 and 180 degrees */
+	UFUNCTION(Category = "Movement", meta = (AllowPrivateAccess = "true"))
+	float CheckOffsetFlap(float LastMovementOffset, float NewMovementOffset);
 };

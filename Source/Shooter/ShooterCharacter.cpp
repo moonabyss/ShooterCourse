@@ -42,6 +42,9 @@ AShooterCharacter::AShooterCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 540.f, 0.f);
 	GetCharacterMovement()->JumpZVelocity = 600.f;
 	GetCharacterMovement()->AirControl = 0.2f;
+	GetCharacterMovement()->MaxAcceleration = 1024.f;
+	GetCharacterMovement()->GroundFriction = 2.f;
+	GetCharacterMovement()->BrakingDecelerationWalking = 512.f;
 }
 
 // Called when the game starts or when spawned

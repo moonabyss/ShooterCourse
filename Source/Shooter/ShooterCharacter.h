@@ -38,6 +38,8 @@ public:
 public:
 
 protected:
+	FORCEINLINE UCameraComponent* GetFollowCamera() { return FollowCamera; }
+
 	/** Called for forwards/backwards inputs */
 	void MoveForward(float Value);
 
@@ -64,6 +66,8 @@ protected:
 	/** Set bAiming to true or false with button press */
 	void AimingButtonPressed();
 	void AimingButtonReleased();
+
+	void CameraInterpZoom(float DeltaTime);
 
 private:
 	// COMPONENTS
@@ -117,4 +121,11 @@ private:
 
 	/** Field of view value for when zoomed in */
 	float CameraZoomedFOV;
+
+	/** Current field of view this frame */
+	float CameraCurrentFOV;
+
+	/** Interp speed for zooming when aiming */
+	UPROPERTY(Category = "Combat", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float ZoomInterpSpeed;
 };

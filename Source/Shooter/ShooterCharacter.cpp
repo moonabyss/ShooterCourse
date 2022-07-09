@@ -19,7 +19,9 @@ AShooterCharacter::AShooterCharacter()
 	, BaseLookUpRate(45.f)
 	, bAiming(false)
 	, CameraDefaultFOV(0.f)  // Set in BeginPlay()
-	, CameraZoomedFOV(60.f)
+	, CameraZoomedFOV(35.f)
+	, CameraCurrentFOV(0.f)
+	, ZoomInterpSpeed(30.f)
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -27,9 +29,9 @@ AShooterCharacter::AShooterCharacter()
 	// Create and setup a camera boom
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>("CameraBoom");
 	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 300.f; // The camera follows at this distance behind the character
+	CameraBoom->TargetArmLength = 180.f; // The camera follows at this distance behind the character
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
-	CameraBoom->SocketOffset = FVector(0.f, 50.f, 50.f);
+	CameraBoom->SocketOffset = FVector(0.f, 50.f, 70.f);
 
 	// Create a follow camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>("FollowCamera");
@@ -58,6 +60,7 @@ void AShooterCharacter::BeginPlay()
 	if (FollowCamera)
 	{
 		CameraDefaultFOV = FollowCamera->FieldOfView;
+		CameraCurrentFOV = CameraDefaultFOV;
 	}
 }
 
@@ -67,6 +70,9 @@ void AShooterCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	bReceivingMoveInput = false;
+
+	// Handle interpolation for zoom when aiming
+	CameraInterpZoom(DeltaTime);
 }
 
 // Called to bind functionality to input
@@ -251,13 +257,25 @@ bool AShooterCharacter::GetBeamEndLocation(const FVector& MuzzleSocketLocation, 
 void AShooterCharacter::AimingButtonPressed()
 {
 	bAiming = true;
-
-	FollowCamera->SetFieldOfView(CameraZoomedFOV);
 }
 
 void AShooterCharacter::AimingButtonReleased()
 {
 	bAiming = false;
+}
 
-	FollowCamera->SetFieldOfView(CameraDefaultFOV);
+void AShooterCharacter::CameraInterpZoom(float DeltaTime)
+{
+	// Set current camera field of view
+	if (bAiming)
+	{
+		// Interpolate to zoomed FOV
+		CameraCurrentFOV = FMath::FInterpTo(CameraCurrentFOV, CameraZoomedFOV, DeltaTime, ZoomInterpSpeed);
+	}
+	else
+	{
+		// Interpolate to default FOV
+		CameraCurrentFOV = FMath::FInterpTo(CameraCurrentFOV, CameraDefaultFOV, DeltaTime, ZoomInterpSpeed);
+	}
+	GetFollowCamera()->SetFieldOfView(CameraCurrentFOV);
 }

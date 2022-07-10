@@ -35,7 +35,7 @@ public:
 	/** Is Player pressing keys for movement */
 	FORCEINLINE bool IsReceivingMoveInput() { return bReceivingMoveInput; }
 
-public:
+	FORCEINLINE bool GetAiming() const { return bAiming; }
 
 protected:
 	FORCEINLINE UCameraComponent* GetFollowCamera() { return FollowCamera; }

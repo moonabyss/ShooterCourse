@@ -54,4 +54,7 @@ private:
 	/** Prevent flap offset between -180 and 180 degrees */
 	UFUNCTION(Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float CheckOffsetFlap(float LastMovementOffset, float NewMovementOffset);
+
+	UPROPERTY(Category = "Movement",  VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	bool bAiming;
 };

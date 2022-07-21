@@ -58,6 +58,18 @@ protected:
 	 */
 	void LookUpAtRate(float Rate);
 
+	/**
+	 * Rotate controller based on mouse Y movement
+	 * @param Value The input value from mouse movement
+	 */
+	void Turn(float Value);
+
+	/**
+	 * Rotate controller based on mouse X movement
+	 * @param Value The input value from mouse movement
+	 */
+	void LookUp(float Value);
+
 	/** Called when Fire button is pressed */
 	void FireWeapon();
 
@@ -68,6 +80,9 @@ protected:
 	void AimingButtonReleased();
 
 	void CameraInterpZoom(float DeltaTime);
+
+	/** Set BaseTurnRates and BaseLookUpRates based on aiming */
+	void SetLookRates();
 
 private:
 	// COMPONENTS
@@ -87,6 +102,38 @@ private:
 	/** Base look up/down rate in deg/s. Other scaling may affect final turn rate */
 	UPROPERTY(Category = "Camera", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float BaseLookUpRate;
+
+	/** Turn rate when not aiming */
+	UPROPERTY(Category = "Camera", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float HipTurnRate;
+
+	/** Look up rate when not aiming */
+	UPROPERTY(Category = "Camera", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float HipLookUpRate;
+
+	/** Turn rate when aiming */
+	UPROPERTY(Category = "Camera", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float AimingTurnRate;
+
+	/** Look up rate when aiming */
+	UPROPERTY(Category = "Camera", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float AimingLookUpRate;
+
+	/** Scale factor for mouse look sensitivity. Turn rate when not aiming */
+	UPROPERTY(Category = "Camera", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), meta = (ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
+	float MouseHipTurnRate;
+
+	/** Scale factor for mouse look sensitivity. Look up rate when not aiming */
+	UPROPERTY(Category = "Camera", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), meta = (ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
+	float MouseHipLookUpRate;
+
+	/** Scale factor for mouse look sensitivity. Turn rate when aiming */
+	UPROPERTY(Category = "Camera", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), meta = (ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
+	float MouseAimingTurnRate;
+
+	/** Scale factor for mouse look sensitivity. Look up rate when aiming */
+	UPROPERTY(Category = "Camera", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), meta = (ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
+	float MouseAimingLookUpRate;
 
 	/** Player is pressing keys for movement */
 	UPROPERTY(Category = "Movement", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
